@@ -1,3 +1,3 @@
-# react-easy-dnd
+Example of drag and drop sorting using HTML5 Drag API
 
-> for entertainment, please do not use in a production environment
+- [Online demo address]()
