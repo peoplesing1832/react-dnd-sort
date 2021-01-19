@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useCallback,
 } from 'react';
 
 type useDragOptions = {
@@ -9,19 +10,19 @@ type useDragOptions = {
 }
 
 const useDrag = (
-  el: HTMLElement,
-  data: any,
+  el: HTMLElement, // 拖拽的元素
+  data: any, // 拖拽的数据
   options: useDragOptions,
 ) => {
 
-  const handleDragstart = (e: DragEvent) => {
+  const handleDragstart = useCallback((e: DragEvent) => {
     if (e.dataTransfer) {
       e.dataTransfer.setData('data', data);
     }
-  };
+  }, [data]);
 
-  const handleDragEnd = (e: DragEvent) => {
-  };
+  const handleDragEnd = useCallback((e: DragEvent) => {
+  }, []);
 
   useEffect(() => {
     el.addEventListener('dragstart', handleDragstart);
@@ -30,7 +31,7 @@ const useDrag = (
       el.removeEventListener('dragstart', handleDragstart);
       el.removeEventListener('dragend', handleDragEnd);
     };
-  }, [el]);
+  }, [el, handleDragstart, handleDragEnd]);
 };
 
 export default useDrag;
