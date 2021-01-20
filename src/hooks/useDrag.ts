@@ -1,4 +1,5 @@
-import { useEffect, useCallback,} from 'react';
+import { useEffect, useCallback, useContext, } from 'react';
+import { DndContext } from './DndProvider';
 
 type UseDragOptions = {
   dragstart?: (e: globalThis.DragEvent) => void;
@@ -13,16 +14,18 @@ const useDrag = (el: React.RefObject<HTMLElement>, data: any, options?: UseDragO
     drag,
   } = options || {};
 
+  const { register } = useContext(DndContext);
+
   const handleDragstart = useCallback((e: globalThis.DragEvent) => {
     if (e.dataTransfer) {
       e.dataTransfer.effectAllowed = 'move'; 
       e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('data', data);
+      register(data);
     }
     if (dragstart) {
       dragstart(e);
     }
-  }, [data, dragstart]);
+  }, [data, dragstart, register]);
 
   const handleDragEnd = useCallback((e: globalThis.DragEvent) => {
     if (dragend) {
