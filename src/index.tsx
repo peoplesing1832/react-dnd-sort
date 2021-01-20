@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import DndProvider from './hooks/DndProvider';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <DndProvider>
     <App />
-  </React.StrictMode>,
+  </DndProvider>,
   document.getElementById('root')
 );
