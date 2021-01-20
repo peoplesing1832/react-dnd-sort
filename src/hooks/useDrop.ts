@@ -1,7 +1,5 @@
-import React, {
-  useEffect,
-  useCallback,
-} from 'react';
+import React, { useEffect, useCallback, useContext, } from 'react';
+import { DndContext } from './DndProvider';
 
 type UseDropOptions = {
   hover?: (data: any) => void;
@@ -14,41 +12,31 @@ const useDrop = (el: React.RefObject<HTMLElement>, options?: UseDropOptions,) =>
     drop,
   } = options || {};
 
+  const { data } = useContext(DndContext);
+
   const handleDragEnter = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
-    let data!:any;
-    if (e.dataTransfer) {
-      data = e.dataTransfer.getData('data');
-    }
     if (hover) {
       hover(data);
     }
-  }, [hover]);
+  }, [hover, data]);
 
   const hanldeDragOver = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
-    let data!:any;
-    if (e.dataTransfer) {
-      data = e.dataTransfer.getData('data');
-    }
     if (hover) {
       hover(data);
     }
-  }, [hover]);
+  }, [hover, data]);
 
   const handleDrop = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
-    let data!:any;
-    if (e.dataTransfer) {
-      data = e.dataTransfer.getData('data');
-    }
     if (hover) {
       hover(data);
     }
     if (drop) {
       drop(data);
     }
-  }, [hover, drop]);
+  }, [hover, drop, data]);
 
   useEffect(() => {
     let node!: HTMLElement;
@@ -65,7 +53,7 @@ const useDrop = (el: React.RefObject<HTMLElement>, options?: UseDropOptions,) =>
         node.removeEventListener('drop', handleDrop);
       }
     };
-  }, [el, handleDragEnter, hanldeDragOver, handleDrop]);
+  }, [el, handleDragEnter, hanldeDragOver, handleDrop, data]);
 };
 
 export default useDrop;
