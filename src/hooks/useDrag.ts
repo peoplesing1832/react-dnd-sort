@@ -1,12 +1,12 @@
 import { useEffect, useCallback,} from 'react';
 
-type useDragOptions = {
+type UseDragOptions = {
   dragstart?: (e: globalThis.DragEvent) => void;
   dragend?: (e: globalThis.DragEvent) => void;
   drag?: (e: globalThis.DragEvent) => void;
 }
 
-const useDrag = (el: React.RefObject<HTMLElement>, data: any, options?: useDragOptions,) => {
+const useDrag = (el: React.RefObject<HTMLElement>, data: any, options?: UseDragOptions,) => {
   const {
     dragstart,
     dragend,
