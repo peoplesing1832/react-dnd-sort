@@ -1,37 +1,58 @@
-import React, {
-  useEffect,
-  useCallback,
-} from 'react';
+import { useEffect, useCallback,} from 'react';
 
 type useDragOptions = {
-  dragstart: () => void; // 开始拖拽时触发
-  dragend: () => void; // 拖拽停止时触发
-
+  dragstart?: (e: globalThis.DragEvent) => void;
+  dragend?: (e: globalThis.DragEvent) => void;
+  drag?: (e: globalThis.DragEvent) => void;
 }
 
-const useDrag = (
-  el: HTMLElement, // 拖拽的元素
-  data: any, // 拖拽的数据
-  options: useDragOptions,
-) => {
+const useDrag = (el: React.RefObject<HTMLElement>, data: any, options?: useDragOptions,) => {
+  const {
+    dragstart,
+    dragend,
+    drag,
+  } = options || {};
 
-  const handleDragstart = useCallback((e: DragEvent) => {
+  const handleDragstart = useCallback((e: globalThis.DragEvent) => {
     if (e.dataTransfer) {
+      e.dataTransfer.effectAllowed = 'move'; 
+      e.dataTransfer.dropEffect = 'move';
       e.dataTransfer.setData('data', data);
     }
-  }, [data]);
+    if (dragstart) {
+      dragstart(e);
+    }
+  }, [data, dragstart]);
 
-  const handleDragEnd = useCallback((e: DragEvent) => {
-  }, []);
+  const handleDragEnd = useCallback((e: globalThis.DragEvent) => {
+    if (dragend) {
+      dragend(e);
+    }
+  }, [dragend]);
+
+  const handleDrag = useCallback((e: globalThis.DragEvent) => {
+    if (drag) {
+      drag(e);
+    }
+  }, [drag]);
 
   useEffect(() => {
-    el.addEventListener('dragstart', handleDragstart);
-    el.addEventListener('dragend', handleDragEnd);
+    let node!: HTMLElement;
+    if (el.current) {
+      node = el.current;
+      node.setAttribute('draggable', 'true');
+      node.addEventListener('dragstart', handleDragstart);
+      node.addEventListener('dragend', handleDragEnd);
+      node.addEventListener('drag', handleDrag);
+    }
     return () => {
-      el.removeEventListener('dragstart', handleDragstart);
-      el.removeEventListener('dragend', handleDragEnd);
+      if (node) {
+        node.removeEventListener('dragstart', handleDragstart);
+        node.removeEventListener('dragend', handleDragEnd);
+        node.removeEventListener('drag', handleDrag);
+      }
     };
-  }, [el, handleDragstart, handleDragEnd]);
+  }, [el, handleDragstart, handleDragEnd, handleDrag]);
 };
 
 export default useDrag;
