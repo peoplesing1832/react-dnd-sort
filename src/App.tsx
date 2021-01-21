@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './components/Card';
 
 function App() {
 
+  const [list, setList] = useState([1, 2, 3, 4, 5]);
+
+  const move = (dropIndex: number, dragIndex: number) => {
+    const drop = list[dropIndex];
+    const drag = list[dragIndex];
+    list[dropIndex] = drag;
+    list[dragIndex] = drop;
+    setList([...list]);
+  };
+
   return (
     <div className="App">
-      <Card index={1}>1</Card>
-      <Card index={2}>2</Card>
+      {
+        list.map((item, index) => {
+          return (
+            <Card
+              index={index}
+              move={move}
+              key={item}
+            >
+              { item }
+            </Card>
+          )
+        })
+      }
     </div>
   );
 }

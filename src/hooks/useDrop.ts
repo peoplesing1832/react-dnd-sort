@@ -2,8 +2,8 @@ import React, { useEffect, useCallback, useContext, } from 'react';
 import { DndContext } from './DndProvider';
 
 type UseDropOptions = {
-  hover?: (data: any) => void;
-  drop?: (data: any) => void;
+  hover?: (data: any, e: globalThis.DragEvent) => void;
+  drop?: (data: any, e: globalThis.DragEvent) => void;
 }
 
 const useDrop = (el: React.RefObject<HTMLElement>, options?: UseDropOptions,) => {
@@ -17,24 +17,24 @@ const useDrop = (el: React.RefObject<HTMLElement>, options?: UseDropOptions,) =>
   const handleDragEnter = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
     if (hover) {
-      hover(data);
+      hover(data, e);
     }
   }, [hover, data]);
 
   const hanldeDragOver = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
     if (hover) {
-      hover(data);
+      hover(data, e);
     }
   }, [hover, data]);
 
   const handleDrop = useCallback((e: globalThis.DragEvent) => {
     e.preventDefault();
     if (hover) {
-      hover(data);
+      hover(data, e);
     }
     if (drop) {
-      drop(data);
+      drop(data, e);
     }
   }, [hover, drop, data]);
 
