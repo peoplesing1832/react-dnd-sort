@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Flip, Flips, } from 'react-flip-transition';
 import Card from './components/Card';
+import './App.css';
 
 function App() {
 
@@ -15,19 +17,26 @@ function App() {
 
   return (
     <div className="App">
-      {
-        list.map((item, index) => {
-          return (
-            <Card
-              index={index}
-              move={move}
-              key={item}
-            >
-              { item }
-            </Card>
-          )
-        })
-      }
+      <Flips
+        name="flip1"
+      >
+        {
+          list.map((item, index) => {
+            return (
+              <Flip key={item}>
+                <div>
+                  <Card
+                    index={index}
+                    move={move}
+                  >
+                    { item }
+                  </Card>
+                </div>
+              </Flip>
+            )
+          })
+        }
+      </Flips>
     </div>
   );
 }
