@@ -6,16 +6,20 @@ import './App.css';
 function App() {
   const [list, setList] = useState([{
     id: 1,
-    name: 'Saoirse Ronan',
-    img: 'https://i.loli.net/2021/01/22/VyYKwmzD49fsaOR.jpg',
+    name: '极光',
+    img: 'https://i.loli.net/2021/01/22/T3MkFLzjCgfGlKd.png',
   }, {
     id: 2,
-    name: 'Emma Watson',
-    img: 'https://i.loli.net/2021/01/22/uUFflQtmVS2andL.jpg',
+    name: '灯塔',
+    img: 'https://i.loli.net/2021/01/22/o4rkn82ANlhEfxc.png',
   }, {
     id: 3,
-    name: 'Margot Robbie',
-    img: 'https://i.loli.net/2021/01/22/QwbmaFL5CyiGNK3.jpg',
+    name: '银杏',
+    img: 'https://i.loli.net/2021/01/22/FUP4SNGXtB9edAE.png',
+  }, {
+    id: 4,
+    name: '海滩',
+    img: 'https://i.loli.net/2021/01/22/dxfuJCDTvXytU7G.png'
   }]);
 
   const move = useCallback((dropIndex: number, dragIndex: number) => {
