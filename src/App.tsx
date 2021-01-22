@@ -4,8 +4,19 @@ import Card from './components/Card';
 import './App.css';
 
 function App() {
-
-  const [list, setList] = useState([1, 2, 3, 4, 5]);
+  const [list, setList] = useState([{
+    id: 1,
+    name: 'Saoirse Ronan',
+    img: 'https://i.loli.net/2021/01/22/VyYKwmzD49fsaOR.jpg',
+  }, {
+    id: 2,
+    name: 'Emma Watson',
+    img: 'https://i.loli.net/2021/01/22/uUFflQtmVS2andL.jpg',
+  }, {
+    id: 3,
+    name: 'Margot Robbie',
+    img: 'https://i.loli.net/2021/01/22/QwbmaFL5CyiGNK3.jpg',
+  }]);
 
   const move = (dropIndex: number, dragIndex: number) => {
     const drop = list[dropIndex];
@@ -23,14 +34,14 @@ function App() {
         {
           list.map((item, index) => {
             return (
-              <Flip key={item}>
+              <Flip key={item.id}>
                 <div>
                   <Card
+                    img={item.img}
+                    name={item.name}
                     index={index}
                     move={move}
-                  >
-                    { item }
-                  </Card>
+                  />
                 </div>
               </Flip>
             )

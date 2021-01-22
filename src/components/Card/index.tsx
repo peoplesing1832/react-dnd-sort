@@ -1,16 +1,33 @@
 import React, { useRef, useState } from 'react';
 import useDrag from '../../hooks/useDrag';
 import useDrop from '../../hooks/useDrop';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
 import './index.css';
 
-type CardProps = {
-  children: React.ReactNode
+type CharacterCardProps = {
   index: number;
   move: (dropIndex: number, dragIndex: number) => void;
+  img: string;
+  name: string;
 }
 
-const Card: React.FC<CardProps> = (props) => {
-  const { children, index, move } = props;
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+});
+
+const CharacterCard: React.FC<CharacterCardProps> = (props) => {
+  const {index, move, img, name } = props;
+  const classes = useStyles();
 
   const ref = useRef<HTMLDivElement>(null)
   const [isDraging, setIsDraging] = useState(false)
@@ -59,12 +76,25 @@ const Card: React.FC<CardProps> = (props) => {
   return (
     <div
       ref={ref}
-      className="card"
       style={mergeStyle}
+      className="card"
     >
-      { children }
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={img}
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              { name }
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </div>
-  )
+    
+  );
 };
 
-export default Card;
+export default CharacterCard;
