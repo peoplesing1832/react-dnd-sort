@@ -18,7 +18,7 @@ const useDrag = (el: React.RefObject<HTMLElement>, data: any, options?: UseDragO
 
   const handleDragstart = useCallback((e: globalThis.DragEvent) => {
     if (e.dataTransfer) {
-      e.dataTransfer.effectAllowed = 'move'; 
+      e.dataTransfer.effectAllowed = 'copyMove'; 
       e.dataTransfer.dropEffect = 'move';
       register(data);
     }
