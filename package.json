@@ -1,5 +1,5 @@
 {
-  "name": "react-drag-drop-sort-demo",
+  "name": "react-dnd-sort",
   "version": "0.0.1",
   "private": true,
   "dependencies": {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Flip, Flips, } from 'react-flip-transition';
 import Card from './components/Card';
 import './App.css';
@@ -18,13 +18,13 @@ function App() {
     img: 'https://i.loli.net/2021/01/22/QwbmaFL5CyiGNK3.jpg',
   }]);
 
-  const move = (dropIndex: number, dragIndex: number) => {
+  const move = useCallback((dropIndex: number, dragIndex: number) => {
     const drop = list[dropIndex];
     const drag = list[dragIndex];
     list[dropIndex] = drag;
     list[dragIndex] = drop;
     setList([...list]);
-  };
+  }, [list]);
 
   return (
     <div className="App">
