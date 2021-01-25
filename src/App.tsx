@@ -39,7 +39,7 @@ function App() {
           list.map((item, index) => {
             return (
               <Flip key={item.id}>
-                <div>
+                <div data-flip-id={item.id}>
                   <Card
                     img={item.img}
                     name={item.name}
